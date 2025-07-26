@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic - Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-gray: #e6e6e6;
+            --medium-gray: #ddd;
+            --dark-gray: #666;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row-reverse;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Tab Bar */
+        .tab-bar {
+            display: flex;
+            background-color: var(--white);
+            border-top: 1px solid var(--medium-gray);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-item.active {
+            color: var(--primary-color);
+        }
+        
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 70px; /* Space for tab bar */
+            overflow-y: auto;
+        }
+        
+        /* Back Button */
+        .back-container {
+            margin: 20px auto 0 auto;
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 12px 15px;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        
+        .back-container:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .arrow-text {
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .back-text {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+        }
+        
+        /* Circle Grid */
+        .circle-container {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 20px auto 0 auto;
+            max-width: 900px;
+        }
+
+        
+        .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            margin-top: 16px;
+        }
+        
+        .circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 12px;
+            width: calc(33.33% - 24px);
+            max-width: 200px;
+            min-width: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .circle-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .circle {
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            width: 100%;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .icon-image {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+        
+        .circle-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .circle-item {
+                width: calc(50% - 24px);
+            }
+            
+            .back-container {
+                width: 95%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .circle-item {
+                width: calc(100% - 24px);
+            }
+            
+            .circle-title {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+        <div class="user-actions">
+            <!-- Placeholder for user actions -->
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Back Button -->
+        <div class="back-container" id="back-button">
+            <div class="arrow-text">&#10094;</div>
+            <div class="back-text">Utama</div>
+        </div>
+        
+        <!-- Circle Grid -->
+        <div class="circle-container">
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="circle-item" data-topic="alphabet">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M7 14l5-5 5 5z'/%3E%3C/svg%3E" alt="Alphabet" class="icon-image">
+                    </div>
+                    <div class="circle-title">Abjad</div>
+                </div>
+                
+                <div class="circle-item" data-topic="numbers">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M4 6h2v12H4zm3 0h2v12H7zm3 0h2v12h-2zm3 0h2v12h-2zm3 0h2v12h-2z'/%3E%3C/svg%3E" alt="Numbers" class="icon-image">
+                    </div>
+                    <div class="circle-title">Angka</div>
+                </div>
+                
+                <div class="circle-item" data-topic="definite">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E" alt="Definite Article" class="icon-image">
+                    </div>
+                    <div class="circle-title">Artikel Pasti</div>
+                </div>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="circle-item" data-topic="indefinite">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3Cpath d='M16 11h-3V8h-2v3H8v2h3v3h2v-3h3z'/%3E%3C/svg%3E" alt="Indefinite Article" class="icon-image">
+                    </div>
+                    <div class="circle-title">Artikel Tak Pasti</div>
+                </div>
+                
+                <div class="circle-item" data-topic="vowel">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z'/%3E%3C/svg%3E" alt="Vowel" class="icon-image">
+                    </div>
+                    <div class="circle-title">Huruf Vokal</div>
+                </div>
+                
+                <div class="circle-item" data-topic="animal">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z'/%3E%3C/svg%3E" alt="Animal" class="icon-image">
+                    </div>
+                    <div class="circle-title">Hewan</div>
+                </div>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="row">
+                <div class="circle-item" data-topic="body">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E" alt="Body Parts" class="icon-image">
+                    </div>
+                    <div class="circle-title">Bagian Tubuh</div>
+                </div>
+                
+                <div class="circle-item" data-topic="family">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E" alt="Family" class="icon-image">
+                    </div>
+                    <div class="circle-title">Keluarga</div>
+                </div>
+                
+                <div class="circle-item" data-topic="sport">
+                    <div class="circle">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M18 9v12h-2V9c0-2.21-1.79-4-4-4S8 6.79 8 9v4.17l1.59-1.59L11 13l-4 4-4-4 1.41-1.41L6 13.17V9c0-3.31 2.69-6 6-6s6 2.69 6 6z'/%3E%3C/svg%3E" alt="Sport" class="icon-image">
+                    </div>
+                    <div class="circle-title">Olahraga</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab-item" data-screen="home-screen">
+            <div class="tab-icon">🏠</div>
+            <div>Home</div>
+        </div>
+        <div class="tab-item active" data-screen="alphabet-screen">
+            <div class="tab-icon">🔤</div>
+            <div>Alphabet</div>
+        </div>
+        <div class="tab-item" data-screen="practice-screen">
+            <div class="tab-icon">✍️</div>
+            <div>Practice</div>
+        </div>
+    </div>
+    
+    <script>
+        // Back button functionality
+        document.getElementById('back-button').addEventListener('click', function() {
+            window.location.href = '../index.html';
+        });
+        
+        // Navigation for circle items
+        const circleItems = document.querySelectorAll('.circle-item');
+        circleItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const topic = this.getAttribute('data-topic');
+                alert(`Navigating to topic: ${topic}`);
+                // In a real app: window.location.href = `/lessons/chapters/${topic}`;
+            });
+        });
+        
+        // Tab Navigation
+        const tabItems = document.querySelectorAll('.tab-item');
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                tabItems.forEach(item => item.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Get the screen to show
+                const screenId = this.getAttribute('data-screen');
+                
+                // In a real app, you would show the appropriate screen
+                alert(`Navigating to: ${screenId}`);
+            });
+        });
+        
+        // Highlight the current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the "Basics" section as active
+            document.querySelector('[data-screen="alphabet-screen"]').classList.add('active');
+        });
+    </script>
+</body>
+</html>

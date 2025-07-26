@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-gray: #e6e6e6;
+            --medium-gray: #ddd;
+            --dark-gray: #666;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Tab Bar */
+        .tab-bar {
+            display: flex;
+            background-color: var(--white);
+            border-top: 1px solid var(--medium-gray);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-item.active {
+            color: var(--primary-color);
+        }
+        
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        /* Main Content Container */
+        .container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 70px; /* Space for tab bar */
+            overflow-y: auto;
+        }
+        
+        /* Home Screen */
+        .welcome-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .box-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .box {
+            background-color: var(--light-gray);
+            width: 48%;
+            border-radius: 12px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .box:hover {
+            transform: translateY(-3px);
+        }
+        
+        .circle {
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .box-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        /* Alphabet Screen */
+        .alphabet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .alphabet-circle {
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .alphabet-circle:hover {
+            transform: scale(1.1);
+        }
+        
+        .letter-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--white);
+        }
+        
+        .open-modal-btn {
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: var(--white);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Practice Screen */
+        .scroll-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding-bottom: 20px;
+        }
+        
+        .panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            background-color: var(--light-gray);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .panel-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary-color);
+            max-width: 150px;
+        }
+        
+        .panel-btn {
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 10px;
+            color: var(--white);
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .video-list {
+            width: 100%;
+        }
+        
+        .video-item {
+            background-color: var(--light-gray);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .video-item:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .video-item-text {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+        
+        .close-modal-btn {
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: var(--white);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .box-container {
+                width: 90%;
+                margin: 20px auto;
+            }
+            
+            .alphabet-circle {
+                width: 80px;
+                height: 80px;
+                margin: 15px;
+            }
+            
+            .letter-text {
+                font-size: 28px;
+            }
+            
+            .panel {
+                padding: 15px;
+            }
+            
+            .panel-title {
+                font-size: 16px;
+                max-width: 200px;
+            }
+            
+            .panel-btn {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .box-container {
+                width: 80%;
+            }
+            
+            .alphabet-circle {
+                width: 100px;
+                height: 100px;
+                margin: 20px;
+            }
+            
+            .letter-text {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+        <div class="user-actions">
+            <!-- Placeholder for user actions -->
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container" id="main-content">
+        <!-- Home Screen (default) -->
+        <div class="screen" id="home-screen">
+            <div class="welcome-text">مرحبا</div>
+            
+            <div class="box-container">
+                <!-- Row 1 -->
+                <div class="box-row">
+                    <div class="box" data-lesson="Basics">
+                        <div class="circle">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z'/%3E%3C/svg%3E" alt="Blocks" class="icon-image">
+                        </div>
+                        <div class="box-title">Dasar</div>
+                    </div>
+                    
+                    <div class="box" data-lesson="Greeting">
+                        <div class="circle">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z'/%3E%3C/svg%3E" alt="Salam" class="icon-image">
+                        </div>
+                        <div class="box-title">Salam</div>
+                    </div>
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="box-row">
+                    <div class="box" data-lesson="Weather">
+                        <div class="circle">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z'/%3E%3C/svg%3E" alt="Climate" class="icon-image">
+                        </div>
+                        <div class="box-title">Cuaca</div>
+                    </div>
+                    
+                    <div class="box" data-lesson="Time">
+                        <div class="circle">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z'/%3E%3C/svg%3E" alt="Time" class="icon-image">
+                        </div>
+                        <div class="box-title">Waktu</div>
+                    </div>
+                </div>
+                
+                <!-- Additional rows would be here -->
+            </div>
+        </div>
+        
+        <!-- Alphabet Screen -->
+        <div class="screen" id="alphabet-screen" style="display:none;">
+            <div class="alphabet-container">
+                <!-- Arabic letters will be generated by JavaScript -->
+            </div>
+            <button class="open-modal-btn" id="open-modal-btn">Lihat Video</button>
+        </div>
+        
+        <!-- Practice Screen -->
+        <div class="screen" id="practice-screen" style="display:none;">
+            <div class="scroll-container">
+                <div class="panel">
+                    <div class="panel-title">Latihan Angka</div>
+                    <button class="panel-btn" data-quiz="NumberQuiz">Latihan Di Sini</button>
+                </div>
+                
+                <div class="panel">
+                    <div class="panel-title">Latihan Artikel Pasti</div>
+                    <button class="panel-btn" data-quiz="DefiniteQuiz">Latihan Di Sini</button>
+                </div>
+                
+                <div class="panel">
+                    <div class="panel-title">Latihan Artikel Tak Pasti</div>
+                    <button class="panel-btn" data-quiz="IndefiniteQuiz">Latihan Di Sini</button>
+                </div>
+                
+                <!-- Additional panels would be here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab-item active" data-screen="home-screen">
+            <div class="tab-icon">🏠</div>
+            <div>Home</div>
+        </div>
+        <div class="tab-item" data-screen="alphabet-screen">
+            <div class="tab-icon">🔤</div>
+            <div>Alphabet</div>
+        </div>
+        <div class="tab-item" data-screen="practice-screen">
+            <div class="tab-icon">✍️</div>
+            <div>Practice</div>
+        </div>
+
+    </div>
+    
+    <!-- Modal for Videos -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-title">Videos</div>
+            <div class="video-list" id="video-list">
+                <!-- Videos will be added by JavaScript -->
+            </div>
+            <button class="close-modal-btn" id="close-modal-btn">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        // Tab Navigation
+        const tabItems = document.querySelectorAll('.tab-item');
+        const screens = document.querySelectorAll('.screen');
+        
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                tabItems.forEach(item => item.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show selected screen
+                const screenId = tab.getAttribute('data-screen');
+                screens.forEach(screen => {
+                    screen.style.display = 'none';
+                    if (screen.id === screenId) {
+                        screen.style.display = 'block';
+                    }
+                });
+            });
+        });
+        
+        // Lesson Navigation
+        const lessonBoxes = document.querySelectorAll('.box');
+        lessonBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const lesson = box.getAttribute('data-lesson');
+                window.location.href = `Lessons/${lesson}.html`;
+            });
+        });
+
+        
+        // Quiz Navigation
+        const quizButtons = document.querySelectorAll('.panel-btn');
+        quizButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const quiz = button.getAttribute('data-quiz');
+                alert(`Starting quiz: ${quiz}`);
+                // In a real app: window.location.href = `/lessons/quizzes/${quiz}`;
+            });
+        });
+        
+        // Alphabet Generation
+        const arabicAlphabet = [
+            'أ', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 
+            'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 
+            'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'
+        ];
+        
+        const alphabetContainer = document.querySelector('.alphabet-container');
+        arabicAlphabet.forEach(letter => {
+            const circle = document.createElement('div');
+            circle.className = 'alphabet-circle';
+            circle.innerHTML = `<div class="letter-text">${letter}</div>`;
+            circle.addEventListener('click', () => {
+                playLetterSound(letter);
+            });
+            alphabetContainer.appendChild(circle);
+        });
+        
+        // Play sound for alphabet letters
+        function playLetterSound(letter) {
+            // In a real app, this would play the actual sound file
+            console.log(`Playing sound for letter: ${letter}`);
+            alert(`Playing sound for letter: ${letter}`);
+        }
+        
+        // Video Modal
+        const openModalBtn = document.getElementById('open-modal-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const videoModal = document.getElementById('video-modal');
+        const videoList = document.getElementById('video-list');
+        
+        const youtubeLinks = [
+            { url: 'https://youtu.be/jQXrxwsszfk', title: 'Huruf-huruf yang mirip pengucapannya' },
+            { url: 'https://www.youtube.com/watch?v=qbz4AFUZPNM', title: 'Huruf-huruf yang mirip pengucapannya 2' },
+            { url: 'https://youtu.be/_YCBbJk31fk', title: 'Mengajarkan pengucapan nama-nama huruf alfabet' }
+        ];
+        
+        // Populate video list
+        youtubeLinks.forEach(video => {
+            const item = document.createElement('div');
+            item.className = 'video-item';
+            item.innerHTML = `<div class="video-item-text">${video.title}</div>`;
+            item.addEventListener('click', () => {
+                window.open(video.url, '_blank');
+            });
+            videoList.appendChild(item);
+        });
+        
+        // Modal controls
+        openModalBtn.addEventListener('click', () => {
+            videoModal.classList.add('active');
+        });
+        
+        closeModalBtn.addEventListener('click', () => {
+            videoModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside content
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
