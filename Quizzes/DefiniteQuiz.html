@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Artikal Pasti - Belajar Bahasa Arab</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px 80px 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .question-count {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .question-text {
+            font-size: 20px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 50px; /* Ensure space for text */
+        }
+
+        .play-audio-btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .play-audio-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .options-container {
+            width: 100%;
+            max-width: 400px; /* Limit width of options */
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .option {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 8px 0;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 18px;
+        }
+
+        .option:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Classes to show correct/incorrect status */
+        .option.correct {
+            background-color: #a8d5ba; /* Light green */
+            color: #155724;
+        }
+
+        .option.incorrect {
+            background-color: #f8d7da; /* Light red */
+            color: #721c24;
+        }
+        
+        /* Disable pointer events after an option is selected */
+        .options-container.disabled .option {
+            pointer-events: none;
+        }
+
+
+        .feedback-container {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+
+        .feedback-container.correct {
+            background-color: #a8d5ba;
+            color: #155724;
+            display: block;
+        }
+
+        .feedback-container.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+            max-width: 200px;
+            margin-top: 30px;
+        }
+
+        .nav-arrow {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+            user-select: none; /* Prevents text selection */
+        }
+
+        .nav-arrow.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+
+    <div class="page-container">
+        <!-- Back Button -->
+        <div class="back-container" onclick="window.history.back();">
+            <div class="arrow-text">&lt;</div>
+            <div class="back-text">Artikal Pasti</div>
+        </div>
+
+        <div class="page-title">Latihan Hewan</div>
+
+        <div id="question-count" class="question-count"></div>
+
+        <button id="play-audio-btn" class="play-audio-btn" style="display: none;">Putar Audio</button>
+
+        <div id="question-text" class="question-text"></div>
+
+        <div id="options-container" class="options-container">
+            <!-- Options will be dynamically inserted here -->
+        </div>
+
+        <div id="feedback-container" class="feedback-container">
+            <!-- Feedback message will be shown here -->
+        </div>
+
+        <div class="navigation">
+            <div id="prev-btn" class="nav-arrow">&lt;</div>
+            <div id="next-btn" class="nav-arrow">&gt;</div>
+        </div>
+    </div>
+    
+    <!-- Audio elements for sound effects -->
+    <audio id="correct-sound" src="../assets/audio/correct.mp3" preload="auto"></audio>
+    <audio id="incorrect-sound" src="../assets/audio/incorrect.mp3" preload="auto"></audio>
+    <audio id="question-audio" preload="auto"></audio>
+
+
+    <script>
+const questions = [
+  {
+    type: 'audio',
+    question: null,
+    audioUrl: '../assets/audio/definite/book.mp3',
+    options: ['كتاب', 'الكتاب', 'كتب', 'كتابين'],
+    answer: 'الكتاب',
+  },
+  {
+    type: 'text',
+    question: 'Kata mana yang menggunakan artikel tertentu dalam bahasa Arab dengan benar?',
+    options: ['بيت', 'البيت', 'بستان', 'بستان'],
+    answer: 'البيت',
+  },
+  {
+    type: 'audio',
+    question: 'Dengarkan audio dan pilih jawaban yang benar:',
+    audioUrl: '../assets/audio/definite/car.mp3',
+    options: ['سيارة', 'السيارة', 'سيارات', 'سيارتك'],
+    answer: 'السيارة',
+  },
+  {
+    type: 'text',
+    question: 'Terjemahkan frasa ini ke dalam bahasa Arab: "Matahari".',
+    options: ['شمس', 'الشمس', 'سمس', 'الشسم'],
+    answer: 'الشمس',
+  },
+  {
+    type: 'text',
+    question: 'Manakah dari kata-kata ini yang berarti "rumah" dalam bahasa Arab?',
+    options: ['المدرسة', 'البيت', 'الشارع', 'الكتاب'],
+    answer: 'البيت',
+  },
+  {
+    type: 'audio',
+    question: 'Dengarkan audio dan pilih kata yang memiliki artikel tertentu:',
+    audioUrl: '../assets/audio/definite/teacher.mp3',
+    options: ['المعلم', 'معلم', 'مدرس', 'المدرس'],
+    answer: 'المعلم',
+  },
+  {
+    type: 'text',
+    question: 'Apa bentuk yang benar dari "pohon" dengan artikel tertentu dalam bahasa Arab?',
+    options: ['شجرة', 'الشجرة', 'شجرات', 'الشجرات'],
+    answer: 'الشجرة',
+  },
+  {
+    type: 'text',
+    question: 'Pilih kata dengan artikel tertentu: "Buku".',
+    options: ['كتاب', 'الكتاب', 'كتب', 'الكتب'],
+    answer: 'الكتاب',
+  },
+  {
+    type: 'audio',
+    question: 'Dengarkan dan pilih kata yang memiliki artikel tertentu:',
+    audioUrl: '../assets/audio/definite/school.mp3',
+    options: ['مدرسة', 'المدرسة', 'مدارس', 'المدارس'],
+    answer: 'المدرسة',
+  },
+  {
+    type: 'text',
+    question: 'Manakah yang merupakan bentuk dengan artikel tertentu dari "anak laki-laki"?',
+    options: ['الولد', 'ولد', 'الأولاد', 'أولاد'],
+    answer: 'الولد',
+  }
+];
+
+        // --- STATE ---
+        let currentQuestionIndex = 0;
+
+        // --- DOM ELEMENTS ---
+        const questionCountEl = document.getElementById('question-count');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackContainerEl = document.getElementById('feedback-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const playAudioBtn = document.getElementById('play-audio-btn');
+        const questionAudioEl = document.getElementById('question-audio');
+        const correctSound = document.getElementById('correct-sound');
+        const incorrectSound = document.getElementById('incorrect-sound');
+
+        // --- FUNCTIONS ---
+
+        /**
+         * Displays the current question and its options.
+         */
+        function displayQuestion() {
+            // Reset previous state
+            feedbackContainerEl.style.display = 'none';
+            optionsContainerEl.innerHTML = '';
+            optionsContainerEl.classList.remove('disabled');
+
+            const currentQuestion = questions[currentQuestionIndex];
+
+            // Update question counter and text
+            questionCountEl.textContent = `Pertanyaan ${currentQuestionIndex + 1} dari ${questions.length}`;
+            questionTextEl.textContent = currentQuestion.question;
+
+            // Handle audio questions
+            if (currentQuestion.type === 'audio' && currentQuestion.audioUrl) {
+                playAudioBtn.style.display = 'block';
+                questionAudioEl.src = currentQuestion.audioUrl;
+            } else {
+                playAudioBtn.style.display = 'none';
+            }
+
+            // Create and display options
+            currentQuestion.options.forEach(optionText => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = optionText;
+                optionDiv.addEventListener('click', () => handleOptionSelect(optionDiv, optionText));
+                optionsContainerEl.appendChild(optionDiv);
+            });
+
+            updateNavButtons();
+        }
+
+        function handleOptionSelect(selectedDiv, selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.answer;
+            
+            optionsContainerEl.classList.add('disabled');
+            
+            feedbackContainerEl.style.display = 'block';
+            if (isCorrect) {
+                selectedDiv.classList.add('correct');
+                feedbackContainerEl.textContent = 'صحيح! أحسنت!';
+                feedbackContainerEl.className = 'feedback-container correct';
+                correctSound.play();
+                
+                setTimeout(() => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                        nextQuestion();
+                    }
+                }, 2000);
+
+            } else {
+                selectedDiv.classList.add('incorrect');
+                feedbackContainerEl.textContent = 'غير صحيح! حاول مرة ثانية.';
+                feedbackContainerEl.className = 'feedback-container incorrect';
+                incorrectSound.play();
+
+                const correctOptionDiv = Array.from(optionsContainerEl.children).find(
+                    div => div.textContent === currentQuestion.answer
+                );
+                if (correctOptionDiv) {
+                    correctOptionDiv.classList.add('correct');
+                }
+            }
+        }
+
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function updateNavButtons() {
+            prevBtn.classList.toggle('disabled', currentQuestionIndex === 0);
+            nextBtn.classList.toggle('disabled', currentQuestionIndex === questions.length - 1);
+        }
+
+        playAudioBtn.addEventListener('click', () => {
+            questionAudioEl.play();
+        });
+
+        prevBtn.addEventListener('click', previousQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+
+        document.addEventListener('DOMContentLoaded', displayQuestion);
+
+    </script>
+
+</body>
+</html>
