@@ -5,63 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn Arabic Numbers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="../style.css">
+
     <style>
-        :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #3498db;
-            --background-color: #f8f9fa;
-            --light-gray: #e6e6e6;
-            --medium-gray: #ddd;
-            --dark-gray: #666;
-            --white: #ffffff;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-        
-        body {
-            background-color: var(--background-color);
-            color: #333;
-            min-height: 100vh;
-            padding-bottom: 70px;
-        }
-        
-        .header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .back-container {
-            margin: 20px auto 10px;
-            background-color: var(--light-gray);
-            border-radius: 12px;
-            padding: 12px 15px;
-            width: 90%;
-            max-width: 800px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+
         
         .back-container:hover {
             background-color: var(--medium-gray);
@@ -600,28 +547,40 @@
         
         // Pronunciation data
         const numbers = [
-            { number: '0', arabic: '٠', pronunciation: 'Ṣifr', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '1', arabic: '١', pronunciation: 'Wāḥid', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '2', arabic: '٢', pronunciation: 'Ithnayn', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '3', arabic: '٣', pronunciation: 'Thalātha', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '4', arabic: '٤', pronunciation: 'Arba‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '5', arabic: '٥', pronunciation: 'Khamsa', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '6', arabic: '٦', pronunciation: 'Sitta', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '7', arabic: '٧', pronunciation: 'Sab‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '8', arabic: '٨', pronunciation: 'Thamāniya', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '9', arabic: '٩', pronunciation: 'Tis‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '10', arabic: '١٠', pronunciation: 'ʿAsharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '11', arabic: '١١', pronunciation: 'Īḥdā ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '12', arabic: '١٢', pronunciation: 'Ithnā ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '13', arabic: '١٣', pronunciation: 'Thalāthat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '14', arabic: '١٤', pronunciation: 'Arba‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '15', arabic: '١٥', pronunciation: 'Khamsat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '16', arabic: '١٦', pronunciation: 'Sittat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '17', arabic: '١٧', pronunciation: 'Sab‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '18', arabic: '١٨', pronunciation: 'Thamāniyat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '19', arabic: '١٩', pronunciation: 'Tis‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
-            { number: '20', arabic: '٢٠', pronunciation: 'Ishrūn', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' }
+            { number: '0', arabic: '٠', pronunciation: 'Ṣifr', audio: '../assets/audio/numbers/0.mp3' },
+            { number: '1', arabic: '١', pronunciation: 'Wāḥid', audio: '../assets/audio/numbers/1.mp3' },
+            { number: '2', arabic: '٢', pronunciation: 'Ithnayn', audio: '../assets/audio/numbers/2.mp3' },
+            { number: '3', arabic: '٣', pronunciation: 'Thalātha', audio: '../assets/audio/numbers/3.mp3' },
+            { number: '4', arabic: '٤', pronunciation: 'Arba‘a', audio: '../assets/audio/numbers/4.mp3' },
+            { number: '5', arabic: '٥', pronunciation: 'Khamsa', audio: '../assets/audio/numbers/5.mp3' },
+            { number: '6', arabic: '٦', pronunciation: 'Sitta', audio: '../assets/audio/numbers/6.mp3' },
+            { number: '7', arabic: '٧', pronunciation: 'Sab‘a', audio: '../assets/audio/numbers/7.mp3' },
+            { number: '8', arabic: '٨', pronunciation: 'Thamāniya', audio: '../assets/audio/numbers/8.mp3' },
+            { number: '9', arabic: '٩', pronunciation: 'Tis‘a', audio: '../assets/audio/numbers/9.mp3' },
+            { number: '10', arabic: '١٠', pronunciation: 'ʿAsharah', audio: '../assets/audio/numbers/10.mp3' },
+            { number: '11', arabic: '١١', pronunciation: 'Īḥdā ‘Asharah', audio: '../assets/audio/numbers/11.mp3' },
+            { number: '12', arabic: '١٢', pronunciation: 'Ithnā ‘Asharah', audio: '../assets/audio/numbers/12.mp3' },
+            { number: '13', arabic: '١٣', pronunciation: 'Thalāthat ‘Asharah', audio: '../assets/audio/numbers/13.mp3' },
+            { number: '14', arabic: '١٤', pronunciation: 'Arba‘at ‘Asharah', audio: '../assets/audio/numbers/14.mp3' },
+            { number: '15', arabic: '١٥', pronunciation: 'Khamsat ‘Asharah', audio: '../assets/audio/numbers/15.mp3' },
+            { number: '16', arabic: '١٦', pronunciation: 'Sittat ‘Asharah', audio: '../assets/audio/numbers/16.mp3' },
+            { number: '17', arabic: '١٧', pronunciation: 'Sab‘at ‘Asharah', audio: '../assets/audio/numbers/17.mp3' },
+            { number: '18', arabic: '١٨', pronunciation: 'Thamāniyat ‘Asharah', audio: '../assets/audio/numbers/18.mp3' },
+            { number: '19', arabic: '١٩', pronunciation: 'Tis‘at ‘Asharah', audio: '../assets/audio/numbers/19.mp3' },
+            { number: '20', arabic: '٢٠', pronunciation: 'Ishrūn', audio: '../assets/audio/numbers/20.mp3' },
+            { number: '21', arabic: '٢١', pronunciation: 'Wāḥid wa Ishrūn', audio: '../assets/audio/numbers/21.mp3' },
+            { number: '22', arabic: '٢٢', pronunciation: 'Ithnān wa Ishrūn', audio: '../assets/audio/numbers/22.mp3' },
+            { number: '23', arabic: '٢٣', pronunciation: 'Thalātha wa Ishrūn', audio: '../assets/audio/numbers/23.mp3' },
+            { number: '24', arabic: '٢٤', pronunciation: 'Arba‘a wa Ishrūn', audio: '../assets/audio/numbers/24.mp3' },
+            { number: '25', arabic: '٢٥', pronunciation: 'Khamsa wa Ishrūn', audio: '../assets/audio/numbers/25.mp3' },
+            { number: '26', arabic: '٢٦', pronunciation: 'Sitta wa Ishrūn', audio: '../assets/audio/numbers/26.mp3' },
+            { number: '27', arabic: '٢٧', pronunciation: 'Sab‘a wa Ishrūn', audio: '../assets/audio/numbers/27.mp3' },
+            { number: '28', arabic: '٢٨', pronunciation: 'Thamāniya wa Ishrūn', audio: '../assets/audio/numbers/28.mp3' },
+            { number: '29', arabic: '٢٩', pronunciation: 'Tis‘a wa Ishrūn', audio: '../assets/audio/numbers/29.mp3' },
+            { number: '30', arabic: '٣٠', pronunciation: 'Thalāthūn', audio: '../assets/audio/numbers/30.mp3' }
         ];
+
+
         
         // DOM elements
         const tabs = document.querySelectorAll('.tab');
