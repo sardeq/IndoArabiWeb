@@ -195,17 +195,16 @@
     </div>
     
     <script>
-        // Back button functionality
+
         document.getElementById('back-button').addEventListener('click', function() {
             window.location.href = '../index.html';
         });
         
-        // Navigation for circle items
         const circleItems = document.querySelectorAll('.circle-item');
         circleItems.forEach(item => {
             item.addEventListener('click', function() {
                 const topic = this.getAttribute('data-topic');
-                alert(`Navigating to topic: ${topic}`);
+                window.location.href = `${topic}.html`
             });
         });
         
@@ -213,16 +212,12 @@
         const tabItems = document.querySelectorAll('.tab-item');
         tabItems.forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remove active class from all tabs
                 tabItems.forEach(item => item.classList.remove('active'));
                 
-                // Add active class to clicked tab
                 this.classList.add('active');
                 
-                // Get the screen to show
                 const screenId = this.getAttribute('data-screen');
                 
-                // In a real app, you would show the appropriate screen
                 alert(`Navigating to: ${screenId}`);
             });
         });

@@ -289,7 +289,7 @@
     
     <!-- Back Button -->
     <div class="back-container" id="back-button">
-        <div class="arrow-text">←</div>
+        <div class="arrow-text">&#10094;</div>
         <div class="back-text">Dasar</div>
     </div>
     
@@ -594,12 +594,9 @@
         const nextButton = document.getElementById('next-button');
         const audioPlayer = document.getElementById('audio-player');
         
-        // Current state
         let currentNumberIndex = 0;
         
-        // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
-            // Populate theory content
             theoryContent.forEach(step => {
                 const stepContainer = document.createElement('div');
                 stepContainer.className = 'step-container';
@@ -646,27 +643,21 @@
                 theoryContainer.appendChild(stepContainer);
             });
             
-            // Update pronunciation display
             updatePronunciationDisplay();
         });
         
-        // Tab switching
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs
                 tabs.forEach(t => t.classList.remove('active'));
                 tabContents.forEach(tc => tc.classList.remove('active'));
                 
-                // Add active class to clicked tab
                 tab.classList.add('active');
                 
-                // Show corresponding content
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(`${tabId}-content`).classList.add('active');
             });
         });
         
-        // Update pronunciation display
         function updatePronunciationDisplay() {
             const currentNumber = numbers[currentNumberIndex];
             numberText.textContent = currentNumber.number;
@@ -691,12 +682,10 @@
             updatePronunciationDisplay();
         });
         
-        // Back button functionality
         document.getElementById('back-button').addEventListener('click', () => {
-            alert('Navigating back to basics');
+            window.location.href = '../index.html'
         });
         
-        // Quiz button functionality
         document.querySelector('.quiz-button').addEventListener('click', () => {
             alert('Navigating to quiz');
         });
