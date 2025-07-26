@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic Numbers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --light-gray: #e6e6e6;
+            --medium-gray: #ddd;
+            --dark-gray: #666;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: #333;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+        
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .back-container {
+            margin: 20px auto 10px;
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 12px 15px;
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .back-container:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .arrow-text {
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .back-text {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .quiz-notice {
+            margin: 10px auto;
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 12px 15px;
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quiz-notice-text {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .quiz-button {
+            background-color: #37FF00;
+            padding: 10px 15px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto 10px;
+        }
+        
+        .tab {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 12px;
+            width: 48%;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .content-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .theory-content {
+            height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .step-container {
+            margin-bottom: 30px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .table th, .table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .pronunciation-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+        }
+        
+        .number-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .number-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .arabic-text {
+            font-size: 48px;
+            color: #2ecc71;
+            margin: 10px 0;
+        }
+        
+        .pronunciation-text {
+            font-size: 24px;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .audio-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .play-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .play-button:hover {
+            background-color: #c0392b;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Custom scrollbar */
+        .theory-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .theory-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .theory-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        .theory-content::-webkit-scrollbar-thumb:hover {
+            background: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .number-text, .arabic-text {
+                font-size: 36px;
+            }
+            
+            .pronunciation-text {
+                font-size: 18px;
+            }
+            
+            .step-title {
+                font-size: 16px;
+            }
+            
+            .step-description {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tabs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .tab {
+                width: 100%;
+            }
+            
+            .number-text, .arabic-text {
+                font-size: 28px;
+            }
+            
+            .table th, .table td {
+                padding: 6px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-container" id="back-button">
+        <div class="arrow-text">←</div>
+        <div class="back-text">Dasar</div>
+    </div>
+    
+    <!-- Quiz Notice -->
+    <div class="quiz-notice">
+        <div class="quiz-notice-text">Latihan Angka</div>
+        <div class="quiz-button">Latihan Di Sini</div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" data-tab="theory">Penjelasan</div>
+        <div class="tab" data-tab="pronunciation">Pengucapan</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Theory Content -->
+        <div class="tab-content active" id="theory-content">
+            <div class="theory-content">
+                <!-- Theory content will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Pronunciation Content -->
+        <div class="tab-content" id="pronunciation-content">
+            <div class="pronunciation-content">
+                <div class="number-display">
+                    <div class="number-text" id="number-text">0</div>
+                    <div class="arabic-text" id="arabic-text">٠</div>
+                    <div class="pronunciation-text" id="pronunciation-text">Ṣifr</div>
+                </div>
+                
+                <div class="audio-controls">
+                    <button class="play-button" id="play-button">
+                        <i class="fas fa-play"></i> Putar Pengucapan
+                    </button>
+                    
+                    <div class="nav-buttons">
+                        <div class="nav-button" id="prev-button">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="nav-button" id="next-button">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Element -->
+    <audio id="audio-player"></audio>
+
+    <script>
+        // Theory content data
+        const theoryContent = [
+            {
+                title: 'Langkah 1: Angka Dasar dalam Bahasa Arab (0-9)',
+                description: 'Langkah pertama untuk mempelajari angka Arab adalah mempelajari angka dasar dari 0 hingga 9. Angka-angka ini sangat penting untuk dipelajari karena membentuk dasar bagi angka-angka lainnya dalam bahasa Arab.',
+                table: [
+                    ['0', '٠', 'Ṣifr'],
+                    ['1', '١', 'Wāḥid'],
+                    ['2', '٢', 'Ithnayn'],
+                    ['3', '٣', 'Thalātha'],
+                    ['4', '٤', 'Arba‘a'],
+                    ['5', '٥', 'Khamsa'],
+                    ['6', '٦', 'Sitta'],
+                    ['7', '٧', 'Sab‘a'],
+                    ['8', '٨', 'Thamāniya'],
+                    ['9', '٩', 'Tis‘a'],
+                ]
+            },
+            {
+                title: 'Langkah 2: Mempelajari Kelipatan 10',
+                description: 'Langkah selanjutnya adalah mempelajari kelipatan 10 dalam bahasa Arab.',
+                table: [
+                    ['10', '١٠', 'ʿAsharah'],
+                    ['20', '٢٠', 'Ishrūn'],
+                    ['30', '٣٠', 'Thalāthūn'],
+                    ['40', '٤٠', 'Arba‘ūn'],
+                    ['50', '٥٠', 'Khamsūn'],
+                    ['60', '٦٠', 'Sittūn'],
+                    ['70', '٧٠', 'Sab‘ūn'],
+                    ['80', '٨٠', 'Thamānūn'],
+                    ['90', '٩٠', 'Tis‘ūn'],
+                ]
+            },
+            {
+                title: 'Langkah 3: Menghitung dari 11 hingga 19',
+                description: 'Langkah berikutnya adalah mempelajari angka dari 11 hingga 19. Berikut adalah angka-angka dari 11 hingga 19 dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['11', '١١', 'Īḥdā ‘Asharah'],
+                    ['12', '١٢', 'Ithnā ‘Asharah'],
+                    ['13', '١٣', 'Thalāthat ‘Asharah'],
+                    ['14', '١٤', 'Arba‘at ‘Asharah'],
+                    ['15', '١٥', 'Khamsat ‘Asharah'],
+                    ['16', '١٦', 'Sittat ‘Asharah'],
+                    ['17', '١٧', 'Sab‘at ‘Asharah'],
+                    ['18', '١٨', 'Thamāniyat ‘Asharah'],
+                    ['19', '١٩', 'Tis‘at ‘Asharah'],
+                ]
+            },
+            {
+                title: 'Langkah 4: Menghitung dari 21 hingga 29',
+                description: 'Langkah berikutnya adalah mempelajari angka dari 21 hingga 29. Berikut adalah angka-angka dari 21 hingga 29 dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['21', '٢١', 'Wāḥid wa-‘Ishrūn'],
+                    ['22', '٢٢', 'Ithnā wa-‘Ishrūn'],
+                    ['23', '٢٣', 'Thalātha wa-‘Ishrūn'],
+                    ['24', '٢٤', 'Arba‘a wa-‘Ishrūn'],
+                    ['25', '٢٥', 'Khamsa wa-‘Ishrūn'],
+                    ['26', '٢٦', 'Sitta wa-‘Ishrūn'],
+                    ['27', '٢٧', 'Sab‘a wa-‘Ishrūn'],
+                    ['28', '٢٨', 'Thamāniya wa-‘Ishrūn'],
+                    ['29', '٢٩', 'Tis‘a wa-‘Ishrūn'],
+                ]
+            },
+            {
+                title: 'Langkah 5: Menghitung dari 31 hingga 39',
+                description: 'Langkah berikutnya adalah mempelajari angka dari 31 hingga 39. Berikut adalah angka-angka dari 31 hingga 39 dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['31', '٣١', 'Wāḥid wa-Thalāthūn'],
+                    ['32', '٣٢', 'Ithnā wa-Thalāthūn'],
+                    ['33', '٣٣', 'Thalātha wa-Thalāthūn'],
+                    ['34', '٣٤', 'Arba‘a wa-Thalāthūn'],
+                    ['35', '٣٥', 'Khamsa wa-Thalāthūn'],
+                    ['36', '٣٦', 'Sitta wa-Thalāthūn'],
+                    ['37', '٣٧', 'Sab‘a wa-Thalāthūn'],
+                    ['38', '٣٨', 'Thamāniya wa-Thalāthūn'],
+                    ['39', '٣٩', 'Tis‘a wa-Thalāthūn'],
+                ]
+            },
+            {
+                title: 'Langkah 6: Menghitung dari 41 hingga 49',
+                description: 'Langkah selanjutnya adalah mempelajari angka dari 41 hingga 49. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['41', '٤١', 'Wāḥid wa-Arba‘ūn'],
+                    ['42', '٤٢', 'Ithnā wa-Arba‘ūn'],
+                    ['43', '٤٣', 'Thalātha wa-Arba‘ūn'],
+                    ['44', '٤٤', 'Arba‘a wa-Arba‘ūn'],
+                    ['45', '٤٥', 'Khamsa wa-Arba‘ūn'],
+                    ['46', '٤٦', 'Sitta wa-Arba‘ūn'],
+                    ['47', '٤٧', 'Sab‘a wa-Arba‘ūn'],
+                    ['48', '٤٨', 'Thamāniya wa-Arba‘ūn'],
+                    ['49', '٤٩', 'Tis‘a wa-Arba‘ūn'],
+                ]
+            },
+            {
+                title: 'Langkah 7: Menghitung dari 51 hingga 59',
+                description: 'Langkah selanjutnya adalah mempelajari angka dari 51 hingga 59. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['51', '٥١', 'Wāḥid wa-Khamsūn'],
+                    ['52', '٥٢', 'Ithnā wa-Khamsūn'],
+                    ['53', '٥٣', 'Thalātha wa-Khamsūn'],
+                    ['54', '٥٤', 'Arba‘a wa-Khamsūn'],
+                    ['55', '٥٥', 'Khamsa wa-Khamsūn'],
+                    ['56', '٥٦', 'Sitta wa-Khamsūn'],
+                    ['57', '٥٧', 'Sab‘a wa-Khamsūn'],
+                    ['58', '٥٨', 'Thamāniya wa-Khamsūn'],
+                    ['59', '٥٩', 'Tis‘a wa-Khamsūn'],
+                ]
+            },
+            {
+                title: 'Langkah 8: Menghitung dari 61 hingga 69',
+                description: 'Langkah selanjutnya adalah mempelajari angka dari 61 hingga 69. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['61', '٦١', 'Wāḥid wa-Sittūn'],
+                    ['62', '٦٢', 'Ithnā wa-Sittūn'],
+                    ['63', '٦٣', 'Thalātha wa-Sittūn'],
+                    ['64', '٦٤', 'Arba‘a wa-Sittūn'],
+                    ['65', '٦٥', 'Khamsa wa-Sittūn'],
+                    ['66', '٦٦', 'Sitta wa-Sittūn'],
+                    ['67', '٦٧', 'Sab‘a wa-Sittūn'],
+                    ['68', '٦٨', 'Thamāniya wa-Sittūn'],
+                    ['69', '٦٩', 'Tis‘a wa-Sittūn'],
+                ]
+            },
+            {
+                title: 'Langkah 9: Menghitung dari 71 hingga 79',
+                description: 'Langkah selanjutnya adalah mempelajari angka dari 71 hingga 79. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['71', '٧١', 'Wāḥid wa-Sab‘ūn'],
+                    ['72', '٧٢', 'Ithnā wa-Sab‘ūn'],
+                    ['73', '٧٣', 'Thalātha wa-Sab‘ūn'],
+                    ['74', '٧٤', 'Arba‘a wa-Sab‘ūn'],
+                    ['75', '٧٥', 'Khamsa wa-Sab‘ūn'],
+                    ['76', '٧٦', 'Sitta wa-Sab‘ūn'],
+                    ['77', '٧٧', 'Sab‘a wa-Sab‘ūn'],
+                    ['78', '٧٨', 'Thamāniya wa-Sab‘ūn'],
+                    ['79', '٧٩', 'Tis‘a wa-Sab‘ūn'],
+                ]
+            },
+            {
+                title: 'Langkah 10: Menghitung dari 81 hingga 89',
+                description: 'Langkah selanjutnya adalah mempelajari angka dari 81 hingga 89. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['81', '٨١', 'Wāḥid wa-Thamānūn'],
+                    ['82', '٨٢', 'Ithnā wa-Thamānūn'],
+                    ['83', '٨٣', 'Thalātha wa-Thamānūn'],
+                    ['84', '٨٤', 'Arba‘a wa-Thamānūn'],
+                    ['85', '٨٥', 'Khamsa wa-Thamānūn'],
+                    ['86', '٨٦', 'Sitta wa-Thamānūn'],
+                    ['87', '٨٧', 'Sab‘a wa-Thamānūn'],
+                    ['88', '٨٨', 'Thamāniya wa-Thamānūn'],
+                    ['89', '٨٩', 'Tis‘a wa-Thamānūn'],
+                ]
+            },
+            {
+                title: 'Langkah 11: Menghitung dari 91 hingga 99',
+                description: 'Langkah terakhir adalah mempelajari angka dari 91 hingga 99. Berikut adalah angka-angka tersebut dalam bahasa Arab dan Indonesia:',
+                table: [
+                    ['91', '٩١', 'Wāḥid wa-Tis‘ūn'],
+                    ['92', '٩٢', 'Ithnā wa-Tis‘ūn'],
+                    ['93', '٩٣', 'Thalātha wa-Tis‘ūn'],
+                    ['94', '٩٤', 'Arba‘a wa-Tis‘ūn'],
+                    ['95', '٩٥', 'Khamsa wa-Tis‘ūn'],
+                    ['96', '٩٦', 'Sitta wa-Tis‘ūn'],
+                    ['97', '٩٧', 'Sab‘a wa-Tis‘ūn'],
+                    ['98', '٩٨', 'Thamāniya wa-Tis‘ūn'],
+                    ['99', '٩٩', 'Tis‘a wa-Tis‘ūn'],
+                ]
+            },
+            {
+                title: 'Langkah 12: Mempelajari Ratusan',
+                description: 'Langkah selanjutnya adalah mempelajari angka ratusan dalam bahasa Arab. Berikut adalah daftar angka ratusan dalam bahasa Arab:',
+                table: [
+                    ['100', '١٠٠', 'Mī’a'],
+                    ['200', '٢٠٠', 'Mā’atan'],
+                    ['300', '٣٠٠', 'Thalāthūn'],
+                    ['400', '٤٠٠', 'Arba‘ūn'],
+                    ['500', '٥٠٠', 'Khamsūn'],
+                    ['600', '٦٠٠', 'Sittūn'],
+                    ['700', '٧٠٠', 'Sab‘ūn'],
+                    ['800', '٨٠٠', 'Thamānūn'],
+                    ['900', '٩٠٠', 'Tis‘ūn'],
+                ]
+            },
+            {
+                title: 'Langkah 13: Mempelajari Ribuan',
+                description: 'Langkah selanjutnya adalah mempelajari angka ribuan dalam bahasa Arab. Berikut adalah daftar angka ribuan dalam bahasa Arab:',
+                table: [
+                    ['1000', '١٠٠٠', 'Alf'],
+                    ['2000', '٢٠٠٠', 'Ālāfān'],
+                    ['3000', '٣٠٠٠', 'Thalāthā Ālāf'],
+                    ['4000', '٤٠٠٠', 'Arba‘ā Ālāf'],
+                    ['5000', '٥٠٠٠', 'Khamsā Ālāf'],
+                    ['6000', '٦٠٠٠', 'Sittā Ālāf'],
+                    ['7000', '٧٠٠٠', 'Sab‘ā Ālāf'],
+                    ['8000', '٨٠٠٠', 'Thamānīyā Ālāf'],
+                    ['9000', '٩٠٠٠', 'Tis‘ā Ālāf'],
+                ]
+            }
+        ];
+        
+        // Pronunciation data
+        const numbers = [
+            { number: '0', arabic: '٠', pronunciation: 'Ṣifr', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '1', arabic: '١', pronunciation: 'Wāḥid', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '2', arabic: '٢', pronunciation: 'Ithnayn', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '3', arabic: '٣', pronunciation: 'Thalātha', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '4', arabic: '٤', pronunciation: 'Arba‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '5', arabic: '٥', pronunciation: 'Khamsa', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '6', arabic: '٦', pronunciation: 'Sitta', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '7', arabic: '٧', pronunciation: 'Sab‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '8', arabic: '٨', pronunciation: 'Thamāniya', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '9', arabic: '٩', pronunciation: 'Tis‘a', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '10', arabic: '١٠', pronunciation: 'ʿAsharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '11', arabic: '١١', pronunciation: 'Īḥdā ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '12', arabic: '١٢', pronunciation: 'Ithnā ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '13', arabic: '١٣', pronunciation: 'Thalāthat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '14', arabic: '١٤', pronunciation: 'Arba‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '15', arabic: '١٥', pronunciation: 'Khamsat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '16', arabic: '١٦', pronunciation: 'Sittat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '17', arabic: '١٧', pronunciation: 'Sab‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '18', arabic: '١٨', pronunciation: 'Thamāniyat ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '19', arabic: '١٩', pronunciation: 'Tis‘at ‘Asharah', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' },
+            { number: '20', arabic: '٢٠', pronunciation: 'Ishrūn', audio: 'https://www.soundjay.com/button/sounds/button-09.mp3' }
+        ];
+        
+        // DOM elements
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const theoryContainer = document.querySelector('.theory-content');
+        const numberText = document.getElementById('number-text');
+        const arabicText = document.getElementById('arabic-text');
+        const pronunciationText = document.getElementById('pronunciation-text');
+        const playButton = document.getElementById('play-button');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const audioPlayer = document.getElementById('audio-player');
+        
+        // Current state
+        let currentNumberIndex = 0;
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Populate theory content
+            theoryContent.forEach(step => {
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'step-container';
+                
+                const title = document.createElement('div');
+                title.className = 'step-title';
+                title.textContent = step.title;
+                
+                const description = document.createElement('div');
+                description.className = 'step-description';
+                description.textContent = step.description;
+                
+                const table = document.createElement('table');
+                table.className = 'table';
+                
+                // Create table header
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                ['Angka', 'Arab', 'Pengucapan'].forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+                
+                // Create table body
+                const tbody = document.createElement('tbody');
+                step.table.forEach(rowData => {
+                    const row = document.createElement('tr');
+                    rowData.forEach(cellData => {
+                        const cell = document.createElement('td');
+                        cell.textContent = cellData;
+                        row.appendChild(cell);
+                    });
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                
+                stepContainer.appendChild(title);
+                stepContainer.appendChild(description);
+                stepContainer.appendChild(table);
+                
+                theoryContainer.appendChild(stepContainer);
+            });
+            
+            // Update pronunciation display
+            updatePronunciationDisplay();
+        });
+        
+        // Tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Update pronunciation display
+        function updatePronunciationDisplay() {
+            const currentNumber = numbers[currentNumberIndex];
+            numberText.textContent = currentNumber.number;
+            arabicText.textContent = currentNumber.arabic;
+            pronunciationText.textContent = currentNumber.pronunciation;
+            audioPlayer.src = currentNumber.audio;
+        }
+        
+        // Play audio
+        playButton.addEventListener('click', () => {
+            audioPlayer.play();
+        });
+        
+        // Navigation
+        prevButton.addEventListener('click', () => {
+            currentNumberIndex = (currentNumberIndex - 1 + numbers.length) % numbers.length;
+            updatePronunciationDisplay();
+        });
+        
+        nextButton.addEventListener('click', () => {
+            currentNumberIndex = (currentNumberIndex + 1) % numbers.length;
+            updatePronunciationDisplay();
+        });
+        
+        // Back button functionality
+        document.getElementById('back-button').addEventListener('click', () => {
+            alert('Navigating back to basics');
+        });
+        
+        // Quiz button functionality
+        document.querySelector('.quiz-button').addEventListener('click', () => {
+            alert('Navigating to quiz');
+        });
+    </script>
+</body>
+</html>
