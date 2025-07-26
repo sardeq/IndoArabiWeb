@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic Numbers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="../style.css">
+        
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-container" id="back-button">
+        <div class="arrow-text">&#10094;</div>
+        <div class="back-text">Dasar</div>
+    </div>
+    
+    <!-- Quiz Notice -->
+    <div class="quiz-notice">
+        <div class="quiz-notice-text">Latihan Angka</div>
+        <div class="quiz-button">Latihan Di Sini</div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" data-tab="pronunciation">Pengucapan</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Pronunciation Content -->
+        <div class="tab-content active" id="pronunciation-content">
+            <div class="pronunciation-content">
+                <div class="number-display">
+                    <div class="number-text" id="number-text"></div>
+                    <div class="arabic-text" id="arabic-text"></div>
+                    <div class="pronunciation-text" id="pronunciation-text"></div>
+                </div>
+                
+                <div class="audio-controls">
+                    <button class="play-button" id="play-button">
+                        <i class="fas fa-play"></i> Putar Pengucapan
+                    </button>
+                    
+                    <div class="nav-buttons">
+                        <div class="nav-button" id="prev-button">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="nav-button" id="next-button">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Element -->
+    <audio id="audio-player"></audio>
+
+    <script>
+const numbers = [
+  { number: 'كرة القدم', arabic: 'Sepak Bola', pronunciation: 'Kurat al-Qadam', audioUrl: '../assets/audio/sports/1.mp3' },
+  { number: 'كرة السلة', arabic: 'Basketball', pronunciation: 'Kurat as-Sallah', audioUrl: '../assets/audio/sports/2.mp3' },
+  { number: 'كرة الطائرة', arabic: 'Voley', pronunciation: 'Kurat at-Tayirah', audioUrl: '../assets/audio/sports/3.mp3' },
+  { number: 'التنس', arabic: 'Tenis', pronunciation: 'At-Tannis', audioUrl: '../assets/audio/sports/4.mp3' },
+  { number: 'السباحة', arabic: 'Renang', pronunciation: 'As-Sibahah', audioUrl: '../assets/audio/sports/5.mp3' },
+  { number: 'الجري', arabic: 'Lari', pronunciation: 'Al-Jari', audioUrl: '../assets/audio/sports/6.mp3' },
+  { number: 'الهوكي', arabic: 'Hoki', pronunciation: 'Al-Hawki', audioUrl: '../assets/audio/sports/7.mp3' },
+  { number: 'السباقات', arabic: 'Balap Mobil', pronunciation: 'As-Sibaqat', audioUrl: '../assets/audio/sports/8.mp3' },
+  { number: 'الملاكمة', arabic: 'Tinju', pronunciation: 'Al-Mulakimah', audioUrl: '../assets/audio/sports/9.mp3' },
+  { number: 'الكرة الطائرة الشاطئية', arabic: 'Voley Pantai', pronunciation: 'Al-Kurat at-Tayirah ash-Shat’iyah', audioUrl: '../assets/audio/sports/10.mp3' },
+  { number: 'رفع الأثقال', arabic: 'Angkat Besi', pronunciation: 'Raf’ al-Athqal', audioUrl: '../assets/audio/sports/11.mp3' },
+  { number: 'المصارعة', arabic: 'Gulat', pronunciation: 'Al-Musara’ah', audioUrl: '../assets/audio/sports/12.mp3' },
+  { number: 'الكريكيت', arabic: 'Kriket', pronunciation: 'Al-Krikit', audioUrl: '../assets/audio/sports/13.mp3' },
+];
+
+
+
+
+
+
+        
+        // DOM elements
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const numberText = document.getElementById('number-text');
+        const arabicText = document.getElementById('arabic-text');
+        const pronunciationText = document.getElementById('pronunciation-text');
+        const playButton = document.getElementById('play-button');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const audioPlayer = document.getElementById('audio-player');
+        
+        let currentNumberIndex = 0;
+        
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                tab.classList.add('active');
+                
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        function updatePronunciationDisplay() {
+            const currentNumber = numbers[currentNumberIndex];
+            numberText.textContent = currentNumber.number;
+            arabicText.textContent = currentNumber.arabic;
+            pronunciationText.textContent = currentNumber.pronunciation;
+            audioPlayer.src = currentNumber.audioUrl;
+        }
+        
+        // Play audio
+        playButton.addEventListener('click', () => {
+            audioPlayer.play();
+        });
+        
+        // Navigation
+        prevButton.addEventListener('click', () => {
+            currentNumberIndex = (currentNumberIndex - 1 + numbers.length) % numbers.length;
+            updatePronunciationDisplay();
+        });
+        
+        nextButton.addEventListener('click', () => {
+            currentNumberIndex = (currentNumberIndex + 1) % numbers.length;
+            updatePronunciationDisplay();
+        });
+        
+        document.getElementById('back-button').addEventListener('click', () => {
+            window.location.href = 'Basics.html'
+        });
+        
+        document.querySelector('.quiz-button').addEventListener('click', () => {
+            alert('Navigating to quiz');
+        });
+
+        updatePronunciationDisplay();
+
+    </script>
+</body>
+</html>

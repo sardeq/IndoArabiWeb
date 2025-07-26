@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic - Artikel Pasti</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-container" id="back-button">
+        <div class="arrow-text">&#10094;</div>
+        <div class="back-text">Dasar</div>
+    </div>
+    
+    <!-- Quiz Notice -->
+    <div class="quiz-notice">
+        <div class="quiz-notice-text">Huruf Vokal</div>
+        <button class="quiz-button" id="quiz-button">Latihan Di Sini</button>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">Penjelasan</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Theory Content -->
+        <div class="theory-content" id="theory-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+    
+
+    <script>
+       const theoryContent = [
+        {
+            title: 'Pengenalan Vokal Arab',
+            description: 'Vokal dalam bahasa Arab dapat dibagi secara luas menjadi dua jenis: vokal pendek dan vokal panjang.',
+            content: [
+            {
+                type: 'bold',
+                text: 'Vokal Pendek:',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'Fatha (ـَ): Setara dengan "a" dalam kata "apel"', bold: true },
+                { text: 'Kasra (ـِ): Setara dengan "i" dalam kata "sakit"', bold: true },
+                { text: 'Damma (ـُ): Setara dengan "o" dalam kata "panci"', bold: true },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Vokal Panjang:',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'Alif (ا): Terdengar seperti "a" dalam kata "mobil"', bold: true },
+                { text: 'Ya’ (ي): Terdengar seperti "ee" dalam kata "benih"', bold: true },
+                { text: 'Waw (و): Terdengar seperti "oo" dalam kata "bulan"', bold: true },
+                ],
+            },
+            ],
+        },
+        {
+            title: 'Menyelami Lebih Dalam Vokal Pendek Arab',
+            description: 'Vokal pendek tidak ditulis dalam teks bahasa Arab sehari-hari, namun sangat penting untuk pengucapan yang benar. Vokal pendek sering kali digunakan dalam buku anak-anak dan teks agama untuk membantu pembaca. Vokal ini ditandai dengan tanda diakritik yang ditempatkan di atas atau di bawah huruf konsonan.',
+            content: [
+            {
+                type: 'bold',
+                text: 'Fatha (ـَ):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'بَ = "ba" (Tanda ini berupa garis diagonal kecil yang ditempatkan di atas huruf.)', bold: true },
+                { text: 'جَبَل (jabal) – gunung', bold: true },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Kasra (ـِ):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'بِ = "bi" (Tanda ini berupa garis diagonal kecil yang ditempatkan di bawah huruf.)', bold: true },
+                { text: 'بِناء (binaa\') – bangunan', bold: true },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Damma (ـُ):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'بُ = "bu" (Tanda ini menyerupai huruf "waw" kecil (و) atau koma kecil yang ditempatkan di atas huruf.)', bold: true },
+                { text: 'قُل (qul) – katakan', bold: true },
+                ],
+            },
+            ],
+        },
+        {
+            title: 'Menyelami Lebih Dalam Vokal Panjang Arab',
+            description: 'Vokal panjang adalah bagian yang melekat dalam sistem tulisan Arab, yaitu huruf Alif (ا), Waw (و), dan Ya’ (ي). Berbeda dengan vokal pendek yang ditandai dengan tanda diakritik, vokal panjang memiliki hurufnya sendiri dalam alfabet Arab, sehingga lebih mudah dibedakan baik dalam penulisan maupun pengucapan.',
+            content: [
+            {
+                type: 'bold',
+                text: 'Alif (ا):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'با = "baa"', bold: true },
+                { text: 'مَال (maal) – kekayaan atau harta', bold: true },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Ya’ (ي):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'بي = "bee"', bold: true },
+                { text: 'شيء (shay\') – benda', bold: true },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Waw (و):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'بو = "boo"', bold: true },
+                { text: 'نُور (noor) – cahaya', bold: true },
+                ],
+            },
+            ],
+        },
+        {
+            title: 'Sukun dan Tanwin dalam Bahasa Arab',
+            description: 'Sukun dan Tanwin adalah tanda diakritik penting dalam pengucapan bahasa Arab yang membantu mengatur bagaimana kata-kata diucapkan dengan jelas.',
+            content: [
+            {
+                type: 'bold',
+                text: 'Sukun (ـْ):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'Sukun adalah tanda diakritik yang sangat penting dalam bahasa Arab dan berperan dalam fonetik serta pengucapan.', bold: true },
+                { text: 'Penampilan: Sukun berupa lingkaran kecil atau oval dan diletakkan di atas huruf yang dipengaruhinya.', bold: true },
+                { text: 'Indikasi: Kehadiran sukun menunjukkan bahwa tidak ada vokal setelah konsonan, artinya konsonan tersebut diucapkan tanpa suara vokal yang mengikuti.', bold: true },
+                { text: 'Contoh:', bold: true },
+                {
+                    type: 'list',
+                    items: [
+                    { text: 'Dalam kata رَسْم (rasm), huruf س (seen) memiliki sukun di atasnya. Ini berarti Anda mengucapkan suara "s" dengan jelas tanpa mengikuti dengan suara vokal, sehingga pengucapannya menjadi "ras-m".', bold: true },
+                    { text: 'Dalam kata شَرْق (sharq) yang berarti "timur", huruf ر (raa) memiliki sukun. Oleh karena itu, pengucapannya menjadi "shar-q".', bold: true },
+                    ],
+                },
+                ],
+            },
+            ],
+        },
+        {
+            title: 'Tanwin dan Shadda dalam Bahasa Arab',
+            description: 'Tanwin dan Shadda adalah tanda diakritik yang menambahkan nuansa tertentu pada pengucapan dalam bahasa Arab.',
+            content: [
+            {
+                type: 'bold',
+                text: 'Tanwin:',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'Tanwin merujuk pada penggandaan vokal pendek (Fatha, Kasra, Damma) di akhir kata. Ini menambahkan suara "n" yang lembut.', bold: true },
+                { text: 'Contoh:', bold: true },
+                {
+                    type: 'list',
+                    items: [
+                    { text: 'كتابًا (kitāban) – sebuah buku', bold: true },
+                    { text: 'طويلًا (taweelan) – tinggi (bentuk tak tentu)', bold: true },
+                    { text: 'جميلٍ (jameelin) – indah (bentuk tak tentu)', bold: true },
+                    ],
+                },
+                ],
+            },
+            {
+                type: 'bold',
+                text: 'Shadda (ـّ):',
+            },
+            {
+                type: 'list',
+                items: [
+                { text: 'Shadda adalah tanda diakritik yang menunjukkan bahwa sebuah huruf harus digandakan atau ditekankan. Ketika dipasangkan dengan vokal, shadda menekankan kekuatan dari suara tersebut.', bold: true },
+                { text: 'Contoh:', bold: true },
+                {
+                    type: 'list',
+                    items: [
+                    { text: 'مُدّ (mudd) – berarti \'jangkauan\' atau \'rentang\', di mana pengulangan huruf "d" diucapkan dengan kuat karena adanya shadda.', bold: true },
+                    ],
+                },
+                ],
+            },
+            ],
+        },
+        ];
+        
+        // DOM elements
+        const theoryContainer = document.getElementById('theory-content');
+        const backButton = document.getElementById('back-button');
+        const quizButton = document.getElementById('quiz-button');
+        
+        // Populate theory content
+        document.addEventListener('DOMContentLoaded', () => {
+            theoryContent.forEach(step => {
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'step-container';
+
+                const title = document.createElement('div');
+                title.className = 'step-title';
+                title.textContent = step.title;
+
+                const description = document.createElement('div');
+                description.className = 'step-description';
+                description.textContent = step.description;
+
+                stepContainer.appendChild(title);
+                stepContainer.appendChild(description);
+
+                step.content.forEach(section => {
+                    if (section.type === 'bold') {
+                        const boldText = document.createElement('div');
+                        boldText.style.fontWeight = 'bold';
+                        boldText.style.marginTop = '10px';
+                        boldText.textContent = section.text;
+                        stepContainer.appendChild(boldText);
+                    } else if (section.type === 'list') {
+                        const list = document.createElement('ul');
+                        list.style.margin = '10px 0 10px 20px';
+
+                        section.items.forEach(item => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = item.text;
+                            if (item.bold) {
+                                listItem.style.fontWeight = 'bold';
+                            }
+                            listItem.style.marginBottom = '6px';
+                            list.appendChild(listItem);
+                        });
+
+                        stepContainer.appendChild(list);
+                    }
+                });
+
+                theoryContainer.appendChild(stepContainer);
+            });
+        });
+
+        
+        // Navigation
+        backButton.addEventListener('click', () => {
+            window.location.href = 'basics.html';
+        });
+        
+        quizButton.addEventListener('click', () => {
+            window.location.href = '/lessons/quizzes/DefiniteQuiz';
+        });
+        
+        const tabItems = document.querySelectorAll('.tab-item');
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabItems.forEach(item => item.classList.remove('active'));
+                tab.classList.add('active');
+                
+
+                const screenId = tab.getAttribute('data-screen');
+                alert(`Navigating to: ${screenId}`);
+            });
+        });
+    </script>
+</body>
+</html>

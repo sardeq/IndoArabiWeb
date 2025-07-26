@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic - Artikel Pasti</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-container" id="back-button">
+        <div class="arrow-text">&#10094;</div>
+        <div class="back-text">Dasar</div>
+    </div>
+    
+    <!-- Quiz Notice -->
+    <div class="quiz-notice">
+        <div class="quiz-notice-text">Latihan Artikel Tak</div>
+        <button class="quiz-button" id="quiz-button">Latihan Di Sini</button>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">Penjelasan</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Theory Content -->
+        <div class="theory-content" id="theory-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+    
+
+    <script>
+        // Theory content data
+       const theoryContent = [
+        {
+            title: 'Langkah 1: Memahami Apa Itu Artikel Tak Tentu',
+            description:'Dalam bahasa Inggris, artikel tak tentu adalah "a" atau "an" dan digunakan sebelum kata benda yang merujuk pada entitas yang tidak spesifik. Misalnya, "a car" (sebuah mobil), "an apple" (sebuah apel), "a book" (sebuah buku). Dalam bahasa Arab, artikel tak tentu ditandai dengan menambahkan akhiran "-un" di akhir kata benda.\nKata benda tak tentu dalam bahasa Arab merujuk pada entitas yang tidak spesifik. Ketidaktentuan ini ditandai dengan menggunakan fitur gramatikal yang disebut nunasi atau "tanween" dalam bahasa Arab.\nTanween berarti bahwa kata benda tersebut tidak spesifik dan ditandai dengan penambahan tanween di akhir kata benda. Tanween digunakan untuk memperjelas status ketidaktentuan dari kata benda tersebut.'
+            },
+        {
+            title: 'Langkah 2: Contoh Artikel Tak Tentu dalam Bahasa Arab',
+            description:'',
+            table: [
+                ['Indonesia', 'Arab', 'Pengucapan'],
+                ['mobil', 'سَيَّارَةٌ', 'sayyaaratun'],
+                ['buku', 'كِتَابٌ', 'kitaabun'],
+                ['rumah', 'بَيْتٌ', 'baytun'],
+                ['pena', 'قَلَمٌ', 'qalamun'],
+                ['murid', 'طَالِبٌ', 'taalibun'],
+                ['guru', 'مُعَلِّمٌ', 'mu\'allimun'],
+                ['anak perempuan', 'بِنْتٌ', 'bintun'],
+                ['anak laki-laki', 'وَلَدٌ', 'waladun'],
+                ['telepon', 'هَاتِفٌ', 'haatifun'],
+                ['meja', 'طَاوِلَةٌ', 'taawilatun'],
+                ['kursi', 'كُرْسِيٌّ', 'kursiyun'],
+                ['pohon', 'شَجَرَةٌ', 'shajaratun'],
+                ['komputer', 'حَاسُوبٌ', 'haasoobun'],
+                ['gambar', 'صُوْرَةٌ', 'sooratun'],
+                ['gelas', 'كَأْسٌ', 'ka\'sun'],
+                ['pintu', 'بَابٌ', 'baabun'],
+                ['jendela', 'نَافِذَةٌ', 'naafithatun'],
+                ['kucing', 'قِطَّةٌ', 'qittatun'],
+                ['anjing', 'كَلْبٌ', 'kalbun'],
+                ['burung', 'طَائِرٌ', 'taa\'irun'],
+            ],
+        },
+        ];
+        
+        // DOM elements
+        const theoryContainer = document.getElementById('theory-content');
+        const backButton = document.getElementById('back-button');
+        const quizButton = document.getElementById('quiz-button');
+        
+        // Populate theory content
+        document.addEventListener('DOMContentLoaded', () => {
+            theoryContent.forEach(step => {
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'step-container';
+                
+                const title = document.createElement('div');
+                title.className = 'step-title';
+                title.textContent = step.title;
+                
+                const description = document.createElement('div');
+                description.className = 'step-description';
+                description.textContent = step.description;
+                
+                stepContainer.appendChild(title);
+                stepContainer.appendChild(description);
+                
+                if (step.table && step.table.length > 0) {
+                    const table = document.createElement('table');
+                    table.className = 'table';
+                    
+                    // Create table header
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+                    step.table[0].forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+                    
+                    // Create table body
+                    const tbody = document.createElement('tbody');
+                    for (let i = 1; i < step.table.length; i++) {
+                        const row = document.createElement('tr');
+                        step.table[i].forEach(cellData => {
+                            const cell = document.createElement('td');
+                            cell.textContent = cellData;
+                            row.appendChild(cell);
+                        });
+                        tbody.appendChild(row);
+                    }
+                    table.appendChild(tbody);
+                    
+                    stepContainer.appendChild(table);
+                }
+                
+                theoryContainer.appendChild(stepContainer);
+            });
+        });
+        
+        // Navigation
+        backButton.addEventListener('click', () => {
+            window.location.href = 'basics.html';
+        });
+        
+        quizButton.addEventListener('click', () => {
+            window.location.href = '/lessons/quizzes/DefiniteQuiz';
+        });
+        
+        const tabItems = document.querySelectorAll('.tab-item');
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabItems.forEach(item => item.classList.remove('active'));
+                tab.classList.add('active');
+                
+
+                const screenId = tab.getAttribute('data-screen');
+                alert(`Navigating to: ${screenId}`);
+            });
+        });
+    </script>
+</body>
+</html>

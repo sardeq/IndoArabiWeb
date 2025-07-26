@@ -126,11 +126,9 @@
         
         tabItems.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Update active tab
                 tabItems.forEach(item => item.classList.remove('active'));
                 tab.classList.add('active');
                 
-                // Show selected screen
                 const screenId = tab.getAttribute('data-screen');
                 screens.forEach(screen => {
                     screen.style.display = 'none';

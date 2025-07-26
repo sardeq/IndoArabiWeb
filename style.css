@@ -230,7 +230,7 @@ body {
 }
 
 .quiz-button {
-    background-color: var(--green);
+    background-color: lightgreen;
     padding: 10px 15px;
     border-radius: 12px;
     color: white;
