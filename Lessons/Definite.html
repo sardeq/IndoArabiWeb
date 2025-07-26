@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Arabic - Artikel Pasti</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">تعلم العربية</div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-container" id="back-button">
+        <div class="arrow-text">&#10094;</div>
+        <div class="back-text">Dasar</div>
+    </div>
+    
+    <!-- Quiz Notice -->
+    <div class="quiz-notice">
+        <div class="quiz-notice-text">Latihan Artikel</div>
+        <button class="quiz-button" id="quiz-button">Latihan Di Sini</button>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">Penjelasan</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Theory Content -->
+        <div class="theory-content" id="theory-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab-item" data-screen="home-screen">
+            <div class="tab-icon">🏠</div>
+            <div>Home</div>
+        </div>
+        <div class="tab-item active" data-screen="alphabet-screen">
+            <div class="tab-icon">🔤</div>
+            <div>Alphabet</div>
+        </div>
+        <div class="tab-item" data-screen="practice-screen">
+            <div class="tab-icon">✍️</div>
+            <div>Practice</div>
+        </div>
+    </div>
+
+    <script>
+        // Theory content data
+        const theoryContent = [
+            {
+                title: 'Langkah 1: Membentuk Artikel Pasti',
+                description: 'Artikel pasti dalam bahasa Arab dibentuk dengan menambahkan prefiks “al” pada kata benda. “Al” setara dengan “the” dalam bahasa Inggris dan harus terhubung dengan kata benda tersebut. Contoh:\n\nGadis itu: البنت (al-bint)\nBuku itu: الكتاب (al-kitab)',
+                table: []
+            },
+            {
+                title: 'Langkah 2: Jenis Kelamin dan Artikel Pasti',
+                description: 'Dalam bahasa Arab, kata benda bisa berjenis kelamin maskulin atau feminin. Namun, artikel pasti tidak berubah tergantung pada jenis kelamin kata benda. Baik untuk kata benda maskulin maupun feminin, artikel pasti tetap "al" (اَل). Contoh:\n\nAnak laki-laki itu: الولد (al-walad)\nWanita itu: المرأة (al-mar\'ah)',
+                table: []
+            },
+            {
+                title: 'Langkah 3: Jamak dan Artikel Pasti',
+                description: 'Artikel pasti juga tidak berubah untuk kata benda jamak. Baik kata benda tunggal maupun jamak, artikel pasti tetap "al" (اَل). Contoh:\n\nAnak-anak laki-laki itu: الأولاد (al-awlad)\nAnak-anak perempuan itu: البنات (al-banat)',
+                table: []
+            },
+            {
+                title: 'Langkah 4: Mengucapkan Artikel Pasti',
+                description: 'Dalam bahasa Arab, huruf-huruf dibagi menjadi dua kategori: Huruf Matahari (الحروف الشمسية) dan Huruf Bulan (الحروف القمرية). Kategorisasi ini didasarkan pada cara huruf-huruf tersebut memengaruhi pengucapan artikel pasti "الـ".',
+                table: []
+            },
+            {
+                title: 'Langkah 5: Huruf Matahari',
+                description: 'Huruf Matahari terdiri dari konsonan-konsonan berikut: (ت, ث, د, ذ, ر, ز, س, ش, ص, ض, ط, ظ, ل, ن). Pengucapan artikel pasti "الـ" berubah ketika terhubung dengan kata yang dimulai dengan huruf Matahari. Suara "ل" dari artikel pasti menjadi tidak terdengar. Misalnya:',
+                table: [
+                    ['Indonesia', 'Arab', 'Pengucapan'],
+                    ['Pakaian', 'الثَّوْب', 'ath-thawb'],
+                    ['Darah', 'الدَّم', 'ad-dam'],
+                    ['Emas', 'الذَّهَب', 'adh-dhahab'],
+                    ['Pria', 'الرَّجُل', 'ar-rajul'],
+                    ['Bunga', 'الزَّهْرَة', 'az-zahrāh'],
+                    ['Ikan', 'السَّمَك', 'as-samak'],
+                    ['Matahari', 'الشَّمْس', 'ash-shams'],
+                    ['Kesehatan', 'الصَّحَّة', 'aṣ-ṣaḥḥah'],
+                    ['Hewan kurban', 'الضَّحِيَّة', 'aḍ-ḍaḥiyyah'],
+                ]
+            },
+            {
+                title: 'Langkah 6: Huruf Bulan',
+                description: 'Huruf Bulan adalah semua huruf yang bukan Huruf Matahari: (أ، ب، ج، ح، خ، ع، غ، ف، ق، ك، م، ه، و، ي). Huruf Bulan dinamai dari kata "القمر" (bulan). Contoh:',
+                table: [
+                    ['Indonesia', 'Arab', 'Pengucapan'],
+                    ['Bulan', 'القمر', 'al-qamar'],
+                    ['Bumi', 'الأَرْض', 'al-arḍ'],
+                    ['Rumah', 'البَيْت', 'al-bayt'],
+                    ['Cuaca', 'الجَوّ', 'al-jaww'],
+                    ['Kehidupan', 'الحَيَاة', 'al-hayat'],
+                    ['Roti', 'الخُبْز', 'al-khubz'],
+                    ['Mata', 'العَيْن', 'al-ʿayn'],
+                    ['Awan', 'الغَيْمَة', 'al-ghaymah'],
+                    ['Hati', 'القَلْب', 'al-qalb'],
+                    ['Air', 'المَاء', 'al-māʾ'],
+                    ['Udara', 'الهَوَاء', 'al-hawāʾ'],
+                    ['Tanah air', 'الوَطَن', 'al-waṭan'],
+                ]
+            }
+        ];
+        
+        // DOM elements
+        const theoryContainer = document.getElementById('theory-content');
+        const backButton = document.getElementById('back-button');
+        const quizButton = document.getElementById('quiz-button');
+        
+        // Populate theory content
+        document.addEventListener('DOMContentLoaded', () => {
+            theoryContent.forEach(step => {
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'step-container';
+                
+                const title = document.createElement('div');
+                title.className = 'step-title';
+                title.textContent = step.title;
+                
+                const description = document.createElement('div');
+                description.className = 'step-description';
+                description.textContent = step.description;
+                
+                stepContainer.appendChild(title);
+                stepContainer.appendChild(description);
+                
+                if (step.table && step.table.length > 0) {
+                    const table = document.createElement('table');
+                    table.className = 'table';
+                    
+                    // Create table header
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+                    step.table[0].forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+                    
+                    // Create table body
+                    const tbody = document.createElement('tbody');
+                    for (let i = 1; i < step.table.length; i++) {
+                        const row = document.createElement('tr');
+                        step.table[i].forEach(cellData => {
+                            const cell = document.createElement('td');
+                            cell.textContent = cellData;
+                            row.appendChild(cell);
+                        });
+                        tbody.appendChild(row);
+                    }
+                    table.appendChild(tbody);
+                    
+                    stepContainer.appendChild(table);
+                }
+                
+                theoryContainer.appendChild(stepContainer);
+            });
+        });
+        
+        // Navigation
+        backButton.addEventListener('click', () => {
+            window.location.href = 'basics.html';
+        });
+        
+        quizButton.addEventListener('click', () => {
+            window.location.href = '/lessons/quizzes/DefiniteQuiz';
+        });
+        
+        const tabItems = document.querySelectorAll('.tab-item');
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabItems.forEach(item => item.classList.remove('active'));
+                tab.classList.add('active');
+                
+
+                const screenId = tab.getAttribute('data-screen');
+                alert(`Navigating to: ${screenId}`);
+            });
+        });
+    </script>
+</body>
+</html>
