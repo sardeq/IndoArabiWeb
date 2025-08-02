@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Arabic Calendar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">تعلم العربية</div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-container" id="back-button">
+    <div class="arrow-text">&#10094;</div>
+    <div class="back-text">Dasar</div>
+  </div>
+
+  <!-- Quiz Notice -->
+  <div class="quiz-notice">
+    <div class="quiz-notice-text">Latihan Kalender</div>
+    <div class="quiz-button">Latihan Di Sini</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="pronunciation">Pengucapan</div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="content-container">
+    <!-- Pronunciation Content -->
+    <div class="tab-content active" id="pronunciation-content">
+      <div class="pronunciation-content">
+        <div class="number-display">
+          <div class="number-text" id="number-text"></div>
+          <div class="arabic-text" id="arabic-text"></div>
+          <div class="pronunciation-text" id="pronunciation-text"></div>
+        </div>
+
+        <div class="audio-controls">
+          <button class="play-button" id="play-button">
+            <i class="fas fa-play"></i> Putar Pengucapan
+          </button>
+
+          <div class="nav-buttons">
+            <div class="nav-button" id="prev-button">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="nav-button" id="next-button">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="audio-player"></audio>
+
+  <script>
+    const numbers = [
+      { number: 'يوم الأحد', arabic: 'Minggu', pronunciation: 'Yawm al-Ahad', audioUrl: '../assets/audio/calendar/7.mp3' },
+      { number: 'يوم الاثنين', arabic: 'Senin', pronunciation: 'Yawm al-Ithnayn', audioUrl: '../assets/audio/calendar/1.mp3' },
+      { number: 'يوم الثلاثاء', arabic: 'Selasa', pronunciation: 'Yawm ath-Thulatha', audioUrl: '../assets/audio/calendar/2.mp3' },
+      { number: 'يوم الأربعاء', arabic: 'Rabu', pronunciation: 'Yawm al-Arba’a', audioUrl: '../assets/audio/calendar/3.mp3' },
+      { number: 'يوم الخميس', arabic: 'Kamis', pronunciation: 'Yawm al-Khamis', audioUrl: '../assets/audio/calendar/4.mp3' },
+      { number: 'يوم الجمعة', arabic: 'Jumat', pronunciation: 'Yawm al-Jumu’a', audioUrl: '../assets/audio/calendar/5.mp3' },
+      { number: 'يوم السبت', arabic: 'Sabtu', pronunciation: 'Yawm as-Sabt', audioUrl: '../assets/audio/calendar/6.mp3' },
+      { number: 'الشهر', arabic: 'Bulan', pronunciation: 'Ash-Shahr', audioUrl: '../assets/audio/calendar/8.mp3' },
+      { number: 'السنة', arabic: 'Tahun', pronunciation: 'As-Sanah', audioUrl: '../assets/audio/calendar/9.mp3' },
+      { number: 'اليوم', arabic: 'Hari ini', pronunciation: 'Al-Yawm', audioUrl: '../assets/audio/calendar/10.mp3' },
+      { number: 'كانون الثاني', arabic: 'Januari', pronunciation: 'Kānūn ath-Thānī', audioUrl: '../assets/audio/calendar/11.mp3' },
+      { number: 'شباط', arabic: 'Februari', pronunciation: 'Shubāṭ', audioUrl: '../assets/audio/calendar/12.mp3' },
+      { number: 'آذار', arabic: 'Maret', pronunciation: 'Ādhār', audioUrl: '../assets/audio/calendar/13.mp3' },
+      { number: 'نيسان', arabic: 'April', pronunciation: 'Nīsān', audioUrl: '../assets/audio/calendar/14.mp3' },
+      { number: 'أيار', arabic: 'Mei', pronunciation: 'Ayyār', audioUrl: '../assets/audio/calendar/15.mp3' },
+      { number: 'حزيران', arabic: 'Juni', pronunciation: 'Ḥuzayrān', audioUrl: '../assets/audio/calendar/16.mp3' },
+      { number: 'تموز', arabic: 'Juli', pronunciation: 'Tammūz', audioUrl: '../assets/audio/calendar/17.mp3' },
+      { number: 'آب', arabic: 'Agustus', pronunciation: 'Āb', audioUrl: '../assets/audio/calendar/18.mp3' },
+      { number: 'أيلول', arabic: 'September', pronunciation: 'Aylūl', audioUrl: '../assets/audio/calendar/19.mp3' },
+      { number: 'تشرين الأول', arabic: 'Oktober', pronunciation: 'Tishrīn al-Awwal', audioUrl: '../assets/audio/calendar/20.mp3' },
+      { number: 'تشرين الثاني', arabic: 'November', pronunciation: 'Tishrīn ath-Thānī', audioUrl: '../assets/audio/calendar/21.mp3' },
+      { number: 'كانون الأول', arabic: 'Desember', pronunciation: 'Kānūn al-Awwal', audioUrl: '../assets/audio/calendar/22.mp3' }
+    ];
+
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const numberText = document.getElementById('number-text');
+    const arabicText = document.getElementById('arabic-text');
+    const pronunciationText = document.getElementById('pronunciation-text');
+    const playButton = document.getElementById('play-button');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    const audioPlayer = document.getElementById('audio-player');
+
+    let currentNumberIndex = 0;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(`${tabId}-content`).classList.add('active');
+      });
+    });
+
+    function updatePronunciationDisplay() {
+      const currentNumber = numbers[currentNumberIndex];
+      numberText.textContent = currentNumber.number;
+      arabicText.textContent = currentNumber.arabic;
+      pronunciationText.textContent = currentNumber.pronunciation;
+      audioPlayer.src = currentNumber.audioUrl;
+    }
+
+    playButton.addEventListener('click', () => {
+      audioPlayer.play();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentNumberIndex = (currentNumberIndex - 1 + numbers.length) % numbers.length;
+      updatePronunciationDisplay();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentNumberIndex = (currentNumberIndex + 1) % numbers.length;
+      updatePronunciationDisplay();
+    });
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
+
+    document.querySelector('.quiz-button').addEventListener('click', () => {
+      alert('Navigating to quiz');
+    });
+
+    updatePronunciationDisplay();
+  </script>
+</body>
+</html>
