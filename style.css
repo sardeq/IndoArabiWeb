@@ -23,7 +23,7 @@
 }
 
 :root {
-    --primary-color: #90EE90;
+    --primary-color: #51c451;
     --secondary-color: #3498db;
     --background-color: #f8f9fa;
     --text-color: #333;
@@ -162,12 +162,14 @@ body {
     margin-bottom: 2px;
     text-align: center;
     line-height: 1.2;
+    color: rgb(199, 39, 39);
 }
 
 .indonesian-title {
     font-size: 14px;
     text-align: center;
     line-height: 1.2;
+    color: rgb(199, 39, 39);
 }
 
 .tab-icon {
@@ -186,7 +188,7 @@ body {
 }
 
 .circle {
-    background-color: greenyellow;
+    background-color: var(--primary-color);
     border-radius: 50%;
     width: 100px;
     height: 100px;
