@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Arabic - Health & Safety</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">تعلم العربية</div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-container" id="back-button">
+    <div class="arrow-text">&#10094;</div>
+    <div class="back-text">العودة</div>
+  </div>
+
+  <!-- Quiz Notice -->
+  <div class="quiz-notice">
+    <div class="quiz-notice-text">Latihan Kesehatan & Keselamatan</div>
+    <div class="quiz-button">Latihan Di Sini</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="pronunciation">Pengucapan</div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="content-container">
+    <!-- Pronunciation Content -->
+    <div class="tab-content active" id="pronunciation-content">
+      <div class="pronunciation-content">
+        <div class="number-display">
+          <div class="number-text" id="number-text"></div>
+          <div class="arabic-text" id="arabic-text"></div>
+          <div class="pronunciation-text" id="pronunciation-text"></div>
+        </div>
+
+        <div class="audio-controls">
+          <button class="play-button" id="play-button">
+            <i class="fas fa-play"></i> Putar Pengucapan
+          </button>
+
+          <div class="nav-buttons">
+            <div class="nav-button" id="prev-button">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="nav-button" id="next-button">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="audio-player"></audio>
+
+  <script>
+    const numbers = [
+      { number: 'أحتاج إلى مساعدة', arabic: 'Saya butuh bantuan', pronunciation: 'Ahtaj ila musaadah', audioUrl: '../assets/audio/health/1.mp3' },
+      { number: 'هل أنت بخير؟', arabic: 'Apakah kamu baik-baik saja?', pronunciation: 'Hal anta bikhair?', audioUrl: '../assets/audio/health/2.mp3' },
+      { number: 'اتصل بالإسعاف', arabic: 'Hubungi ambulans', pronunciation: 'Itisil bil-is\'af', audioUrl: '../assets/audio/health/3.mp3' },
+      { number: 'أنا مصاب', arabic: 'Saya terluka', pronunciation: 'Ana musab', audioUrl: '../assets/audio/health/4.mp3' },
+      { number: 'أين المستشفى؟', arabic: 'Di mana rumah sakit?', pronunciation: 'Ayna al-mustashfa?', audioUrl: '../assets/audio/health/5.mp3' },
+      { number: 'مساعدة طبية', arabic: 'Pertolongan medis', pronunciation: 'Musa’adah tibbiyah', audioUrl: '../assets/audio/health/6.mp3' },
+      { number: 'النجدة!', arabic: 'Tolong!', pronunciation: 'An-najda!', audioUrl: '../assets/audio/health/7.mp3' },
+      { number: 'هل يوجد شخص مصاب؟', arabic: 'Apakah ada yang terluka?', pronunciation: 'Hal yujad shakhs musab?', audioUrl: '../assets/audio/health/8.mp3' },
+      { number: 'إجراءات السلامة', arabic: 'Tindakan keselamatan', pronunciation: 'Ijra’at as-salamah', audioUrl: '../assets/audio/health/9.mp3' },
+      { number: 'احترس!', arabic: 'Hati-hati!', pronunciation: 'Ihtaris!', audioUrl: '../assets/audio/health/10.mp3' },
+    ];
+
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const numberText = document.getElementById('number-text');
+    const arabicText = document.getElementById('arabic-text');
+    const pronunciationText = document.getElementById('pronunciation-text');
+    const playButton = document.getElementById('play-button');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    const audioPlayer = document.getElementById('audio-player');
+
+    let currentNumberIndex = 0;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(`${tabId}-content`).classList.add('active');
+      });
+    });
+
+    function updatePronunciationDisplay() {
+      const currentNumber = numbers[currentNumberIndex];
+      numberText.textContent = currentNumber.number;
+      arabicText.textContent = currentNumber.arabic;
+      pronunciationText.textContent = currentNumber.pronunciation;
+      audioPlayer.src = currentNumber.audioUrl;
+    }
+
+    playButton.addEventListener('click', () => {
+      audioPlayer.play();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentNumberIndex = (currentNumberIndex - 1 + numbers.length) % numbers.length;
+      updatePronunciationDisplay();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentNumberIndex = (currentNumberIndex + 1) % numbers.length;
+      updatePronunciationDisplay();
+    });
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
+
+    document.querySelector('.quiz-button').addEventListener('click', () => {
+      alert('Navigating to quiz');
+    });
+
+    updatePronunciationDisplay();
+  </script>
+</body>
+</html>
